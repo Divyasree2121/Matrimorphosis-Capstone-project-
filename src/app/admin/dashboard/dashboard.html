@@ -1,0 +1,34 @@
+<h2>Admin Dashboard</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Subject</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (complaint of complaints(); track complaint.id) {
+      <tr>
+        <td>{{ complaint.id }}</td>
+        <td>{{ complaint.subject }}</td>
+        <td>{{ complaint.status }}</td>
+        <td>
+          <button (click)="selectComplaint(complaint)">View</button>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>
+
+@if (selectedComplaint(); as complaint) {
+  <div>
+    <h3>Complaint Details</h3>
+    <p><strong>Subject:</strong> {{ complaint.subject }}</p>
+    <p><strong>Status:</strong> {{ complaint.status }}</p>
+    <p><strong>Resolution Notes:</strong> {{ complaint.resolutionNotes }}</p>
+    <button (click)="clearSelection()">Close</button>
+  </div>
+}

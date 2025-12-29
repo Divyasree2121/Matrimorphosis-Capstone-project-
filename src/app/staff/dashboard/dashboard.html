@@ -1,0 +1,43 @@
+<h2>Staff Dashboard</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Subject</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (complaint of complaints(); track complaint.id) {
+      <tr>
+        <td>{{ complaint.id }}</td>
+        <td>{{ complaint.subject }}</td>
+        <td>{{ complaint.status }}</td>
+        <td>
+          <button (click)="selectComplaint(complaint)">Select</button>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>
+
+@if (selectedComplaintId(); as id) {
+  <div>
+    <h3>Update Complaint #{{ id }}</h3>
+    <div>
+      <label for="status">Status:</label>
+      <select id="status" [value]="selectedStatus()" (change)="onStatusChange($event)">
+        <option value="Assigned">Assigned</option>
+        <option value="In-progress">In-progress</option>
+        <option value="Resolved">Resolved</option>
+      </select>
+    </div>
+    <div>
+      <label for="notes">Resolution Notes:</label>
+      <textarea id="notes" [value]="resolutionNotes()" (input)="onNotesInput($event)"></textarea>
+    </div>
+    <button (click)="updateComplaint()">Save</button>
+  </div>
+}

@@ -1,0 +1,36 @@
+<div class="admin-dashboard-container">
+  <h2>Admin Dashboard</h2>
+  <div class="complaint-list">
+    <h3>Unassigned Complaints</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Category</th>
+          <th>Assign To</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (complaint of complaints$ | async; track complaint.id) {
+          @if(complaint.status === 'Open') {
+            <tr>
+              <td>{{ complaint.title }}</td>
+              <td>{{ complaint.category }}</td>
+              <td>
+                <select #staffSelect>
+                  @for (staff of staff$ | async; track staff.id) {
+                    <option [value]="staff.id">{{ staff.name }}</option>
+                  }
+                </select>
+              </td>
+              <td>
+                <button (click)="assignComplaint(complaint.id, staffSelect.value)">Assign</button>
+              </td>
+            </tr>
+          }
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

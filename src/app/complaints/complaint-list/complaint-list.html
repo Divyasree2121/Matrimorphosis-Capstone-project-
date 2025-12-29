@@ -1,0 +1,25 @@
+<div class="complaint-list-container">
+  <h2>Your Complaints</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Category</th>
+        <th>Status</th>
+        <th>Date</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (complaint of complaints$ | async; track complaint.id) {
+        <tr>
+          <td>{{ complaint.title }}</td>
+          <td>{{ complaint.category }}</td>
+          <td [style.color]="getStatusColor(complaint.status)">{{ complaint.status }}</td>
+          <td>{{ complaint.createdAt | date: 'short' }}</td>
+          <td><button>View</button></td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

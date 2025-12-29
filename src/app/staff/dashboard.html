@@ -1,0 +1,33 @@
+<div class="staff-dashboard-container">
+  <h2>Your Assigned Complaints</h2>
+  <div class="complaint-list">
+    <table>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Category</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (complaint of complaints$ | async; track complaint.id) {
+          <tr>
+            <td>{{ complaint.title }}</td>
+            <td>{{ complaint.category }}</td>
+            <td>
+              <select #statusSelect [value]="complaint.status">
+                <option value="Assigned">Assigned</option>
+                <option value="In-progress">In-progress</option>
+                <option value="Resolved">Resolved</option>
+              </select>
+            </td>
+            <td>
+              <button (click)="updateStatus(complaint.id, statusSelect.value)">Update</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
